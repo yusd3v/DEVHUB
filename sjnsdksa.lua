@@ -170,6 +170,21 @@ else
     print("CameraMaxZoomDistance set successfully!")
 end
 
+
+-- Roblox Anti-AFK Script  
+-- Made by aoki0x  
+-- RemiAPE On Top!  
+
+wait(0.5)  
+
+local VirtualUser = game:service("VirtualUser")  
+local Player = game:service("Players").LocalPlayer  
+
+Player.Idled:connect(function()  
+    VirtualUser:CaptureController()  
+    VirtualUser:ClickButton2(Vector2.new())  
+end)
+
 -- teleports [working on this.]
 
 local TeleportButton = tab5:CreateButton({
