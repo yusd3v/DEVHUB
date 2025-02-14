@@ -625,8 +625,6 @@ local SitBlockToggle = tab6:CreateToggle({
 })
 
 
-
-
 -- Function to find a player by partial or full name
 local function findPlayerByName(name)
     name = name:lower()
@@ -642,14 +640,24 @@ end
 local function unclaimPlayerBooth(playerName)
     local targetPlayer = findPlayerByName(playerName)
     if not targetPlayer then
-        getgenv().notify("Error:", "Player not found!", 6.5)
+        Rayfield:Notify({
+            Title = "Error",
+            Content = "Player not found!",
+            Duration = 6.5,
+            Image = 4483362458, -- Optional: Replace with your own image asset ID
+        })
         return
     end
 
     -- Assuming 'Booth' is a folder in the Workspace containing all booths
     local boothsFolder = game.Workspace:FindFirstChild("Booth")
     if not boothsFolder then
-        getgenv().notify("Error:", "Booth folder not found in Workspace!", 6.5)
+        Rayfield:Notify({
+            Title = "Error",
+            Content = "Booth folder not found in Workspace!",
+            Duration = 6.5,
+            Image = 4483362458,
+        })
         return
     end
 
@@ -666,7 +674,12 @@ local function unclaimPlayerBooth(playerName)
 
     local playerBooth = getPlayerBooth()
     if not playerBooth then
-        getgenv().notify("Error:", targetPlayer.Name .. " does not own a booth!", 6.5)
+        Rayfield:Notify({
+            Title = "Error",
+            Content = targetPlayer.Name .. " does not own a booth!",
+            Duration = 6.5,
+            Image = 4483362458,
+        })
         return
     end
 
@@ -674,21 +687,33 @@ local function unclaimPlayerBooth(playerName)
     local deleteBoothEvent = game.ReplicatedStorage:FindFirstChild("DeleteBoothOwnership")
     if deleteBoothEvent then
         deleteBoothEvent:FireServer(playerBooth)
-        getgenv().notify("Success:", "Unclaimed " .. targetPlayer.Name .. "'s booth.", 6.5)
+        Rayfield:Notify({
+            Title = "Success",
+            Content = "Unclaimed " .. targetPlayer.Name .. "'s booth.",
+            Duration = 6.5,
+            Image = 4483362458,
+        })
     else
-        getgenv().notify("Error:", "DeleteBoothOwnership event not found!", 6.5)
+        Rayfield:Notify({
+            Title = "Error",
+            Content = "DeleteBoothOwnership event not found!",
+            Duration = 6.5,
+            Image = 4483362458,
+        })
     end
 end
+local Tab1 = Window:CreateTab("Tab 1", 4483362458) -- Replace with your tab's name and icon ID
 
--- Input field in Tab1 to unclaim a player's booth
-getgenv().unclaimPlrBooth = Tab1:CreateInput({
+Tab1:CreateInput({
     Name = "Unclaim A Booth",
     PlaceholderText = "Enter Player Name",
     RemoveTextAfterFocusLost = true,
-    Callback = function(inputText)
-        unclaimPlayerBooth(inputText)
-    end
+    Callback = function(playerName)
+        unclaimPlayerBooth(playerName)
+    end,
 })
+
+
 
 
 
