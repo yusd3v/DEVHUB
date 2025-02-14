@@ -259,6 +259,54 @@ local UnbangButton = tab2:CreateButton({
     end
 })
 
+
+local Players = game:GetService("Players")
+local speaker = Players.LocalPlayer
+
+-- Function to find a player from partial name
+local function getTargetPlayer(name)
+    name = string.lower(name)
+    for _, player in ipairs(Players:GetPlayers()) do
+        if string.lower(player.Name):sub(1, #name) == name or string.lower(player.DisplayName):sub(1, #name) == name then
+            return player
+        end
+    end
+    return nil
+end
+
+-- Teleport Input Field
+local TeleportInput = tab2:CreateInput({
+    Name = "Teleport to Player",
+    PlaceholderText = "Enter Player Name",
+    RemoveTextAfterFocusLost = false,
+    Callback = function(playerName)
+        local success, err = pcall(function()
+            -- Find target player
+            local targetPlayer = getTargetPlayer(playerName)
+            if targetPlayer and targetPlayer.Character then
+                local targetRoot = targetPlayer.Character:FindFirstChild("HumanoidRootPart")
+                local speakerRoot = speaker.Character and speaker.Character:FindFirstChild("HumanoidRootPart")
+
+                if targetRoot and speakerRoot then
+                    speakerRoot.CFrame = targetRoot.CFrame + Vector3.new(0, 2, 0) -- Teleport slightly above
+                end
+            end
+
+            -- Clear text box after teleport
+            TeleportInput:Set("")
+        end)
+
+        -- Prevent button from going red (error handling)
+        if not success then
+            warn("Teleport Error:", err)
+        end
+    end
+})
+
+
+
+
+
 -- zoom out 
 local player = game.Players.LocalPlayer
 
