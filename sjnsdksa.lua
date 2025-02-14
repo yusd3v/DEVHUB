@@ -122,7 +122,7 @@ local function startFly()
     -- BodyVelocity for movement
     flyBodyVelocity = Instance.new("BodyVelocity", root)
     flyBodyVelocity.Velocity = Vector3.new(0, 0, 0)
-    flyBodyVelocity.MaxForce = Vector3.new(4000, 4000, 4000)
+    flyBodyVelocity.MaxForce = Vector3.new(4000, 4000, 4000) * humanoid.HipHeight -- Adjust MaxForce based on HipHeight
 
     -- Flight Loop
     flyLoop = RunService.Heartbeat:Connect(function()
@@ -132,12 +132,12 @@ local function startFly()
         end
 
         local moveDirection = Vector3.zero
-        local cameraLook = game.Workspace.CurrentCamera.CFrame.LookVector
-        local rightVector = game.Workspace.CurrentCamera.CFrame.RightVector
+        local cameraLook = workspace.CurrentCamera.CFrame.LookVector
+        local rightVector = workspace.CurrentCamera.CFrame.RightVector
 
         -- Movement Inputs (Fly in Any Direction You're Looking)
         if UserInputService:IsKeyDown(Enum.KeyCode.W) then
-            moveDirection = moveDirection + cameraLook -- Now follows exact camera look
+            moveDirection = moveDirection + cameraLook
         end
         if UserInputService:IsKeyDown(Enum.KeyCode.S) then
             moveDirection = moveDirection - cameraLook
@@ -160,7 +160,7 @@ local function startFly()
             moveDirection = moveDirection.Unit * flySpeed
         end
         flyBodyVelocity.Velocity = moveDirection
-        flyBodyGyro.CFrame = game.Workspace.CurrentCamera.CFrame
+        flyBodyGyro.CFrame = workspace.CurrentCamera.CFrame
     end)
 end
 
@@ -208,6 +208,7 @@ local FlySpeedSlider = tab1:CreateSlider({
         flySpeed = Value
     end,
 })
+
 
 
 -- Services
