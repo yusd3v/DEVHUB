@@ -35,7 +35,7 @@ KeySettings = {
 })
 
 local tab1 = Window:CreateTab("Local Player", nil) -- Title, Image
--- local tab2 = Window:CreateTab("Players", nil) -- Title, Image
+local tab2 = Window:CreateTab("Players", nil) -- Title, Image
 local tab3 = Window:CreateTab("Exploits", nil) -- Title, Image
 local tab6 = Window:CreateTab("Map", nil)
 local tab7 = Window:CreateTab("Chat", nil)
@@ -176,6 +176,75 @@ local Button = tab1:CreateButton({
 loadstring(game:HttpGet("https://raw.githubusercontent.com/platinumicy/unsuspend/refs/heads/main/unsuspend"))()
     end,
 })
+
+
+
+local BangInput = tab2:CreateInput({
+    Name = "Bang Command",
+    PlaceholderText = "Enter Player Name",
+    RemoveTextAfterFocusLost = false,
+    Callback = function(playerName)
+       local speaker = game.Players.LocalPlayer
+       if not speaker or not speaker.Character then return end
+ 
+       local humanoid = speaker.Character:FindFirstChildWhichIsA("Humanoid")
+       if not humanoid then return end
+ 
+       -- Load the animation
+       bangAnim = Instance.new("Animation")
+       bangAnim.AnimationId = speaker.Character:FindFirstChildOfClass("Humanoid").RigType == Enum.HumanoidRigType.R15 
+          and "rbxassetid://5918726674" or "rbxassetid://148840371"
+ 
+       bang = humanoid:LoadAnimation(bangAnim)
+       bang:Play(0.1, 1, 1)
+       bang:AdjustSpeed(3) -- Default speed
+ 
+       -- Cleanup on death
+       bangDied = humanoid.Died:Connect(function()
+          bang:Stop()
+          bangAnim:Destroy()
+          bangDied:Disconnect()
+          if bangLoop then bangLoop:Disconnect() end
+       end)
+ 
+       -- Get target player
+       local targetPlayer = game.Players:FindFirstChild(playerName)
+       if targetPlayer and targetPlayer.Character then
+          local bangOffset = CFrame.new(0, 0, 1.1)
+          bangLoop = game:GetService("RunService").Stepped:Connect(function()
+             pcall(function()
+                local otherRoot = targetPlayer.Character:FindFirstChild("HumanoidRootPart")
+                if otherRoot then
+                   local speakerRoot = speaker.Character:FindFirstChild("HumanoidRootPart")
+                   if speakerRoot then
+                      speakerRoot.CFrame = otherRoot.CFrame * bangOffset
+                   end
+                end
+             end)
+          end)
+       end
+    end
+ })
+ 
+
+local Button = tab2:CreateButton({
+    Name = "Unbang",
+    Callback = function()
+       if bangDied then
+          bangDied:Disconnect()
+       end
+       if bang then
+          bang:Stop()
+       end
+       if bangAnim then
+          bangAnim:Destroy()
+       end
+       if bangLoop then
+          bangLoop:Disconnect()
+       end
+    end,
+ })
+ 
 
 -- zoom out 
 local player = game.Players.LocalPlayer
