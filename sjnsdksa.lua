@@ -179,24 +179,40 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/platinumicy/unsuspend
 
 
 
+local RunService = game:GetService("RunService")
+local Players = game:GetService("Players")
+local speaker = Players.LocalPlayer
+local bang, bangLoop, bangDied, bangAnim
+
+-- Function to get player from name (case-insensitive)
+local function getTargetPlayer(name)
+    for _, player in ipairs(Players:GetPlayers()) do
+        if string.lower(player.Name) == string.lower(name) or string.lower(player.DisplayName) == string.lower(name) then
+            return player
+        end
+    end
+    return nil
+end
+
+-- Bang Command Input
 local BangInput = tab2:CreateInput({
     Name = "Bang Command",
     PlaceholderText = "Enter Player Name",
     RemoveTextAfterFocusLost = false,
     Callback = function(playerName)
-        local speaker = game.Players.LocalPlayer
         if not speaker or not speaker.Character then return end
-
         local humanoid = speaker.Character:FindFirstChildWhichIsA("Humanoid")
         local speakerRoot = speaker.Character:FindFirstChild("HumanoidRootPart")
         if not humanoid or not speakerRoot then return end
 
-        -- Load the animation
+        -- Stop any existing animation
         if bang then bang:Stop() end
+
+        -- Load animation
         bangAnim = Instance.new("Animation")
         bangAnim.AnimationId = humanoid.RigType == Enum.HumanoidRigType.R15 
             and "rbxassetid://5918726674" or "rbxassetid://148840371"
-
+        
         bang = humanoid:LoadAnimation(bangAnim)
         bang:Play(0.1, 1, 1)
         bang:AdjustSpeed(3)
@@ -209,23 +225,16 @@ local BangInput = tab2:CreateInput({
             if bangLoop then bangLoop:Disconnect() end
         end)
 
-        -- Get target player (case-insensitive search)
-        local targetPlayer = nil
-        for _, player in ipairs(game.Players:GetPlayers()) do
-            if string.lower(player.Name) == string.lower(playerName) or string.lower(player.DisplayName) == string.lower(playerName) then
-                targetPlayer = player
-                break
-            end
-        end
-
-        -- Attach if player is found
+        -- Find target player
+        local targetPlayer = getTargetPlayer(playerName)
         if targetPlayer and targetPlayer.Character then
             local targetRoot = targetPlayer.Character:FindFirstChild("HumanoidRootPart")
             if targetRoot then
-                local bangOffset = CFrame.new(0, 0, -1.5) -- Attach behind them
+                -- Set up movement to stay attached
+                local bangOffset = CFrame.new(0, 0, -1.5) -- Follow behind
                 if bangLoop then bangLoop:Disconnect() end
-                bangLoop = game:GetService("RunService").Stepped:Connect(function()
-                    if speaker.Character and speaker.Character:FindFirstChild("HumanoidRootPart") then
+                bangLoop = RunService.Heartbeat:Connect(function()
+                    if speaker.Character and targetRoot and speaker.Character:FindFirstChild("HumanoidRootPart") then
                         speakerRoot.CFrame = targetRoot.CFrame * bangOffset
                     end
                 end)
@@ -234,7 +243,6 @@ local BangInput = tab2:CreateInput({
     end
 })
  
-
 local UnbangButton = tab2:CreateButton({
     Name = "Stop Bang",
     Callback = function()
@@ -244,7 +252,6 @@ local UnbangButton = tab2:CreateButton({
         if bangAnim then bangAnim:Destroy() end
     end
 })
-
 -- zoom out 
 local player = game.Players.LocalPlayer
 
