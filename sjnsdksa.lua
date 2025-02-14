@@ -1,7 +1,7 @@
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 local Window = Rayfield:CreateWindow({
-Name = "Flux | MIC UP 🔊",
+Name = "D3V | MIC UP 🔊",
 Icon = 0, -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
 LoadingTitle = "MIC UP 🔊",
 LoadingSubtitle = "by yus",
@@ -22,7 +22,7 @@ Discord = {
     RememberJoins = true -- Set this to false to make them join the discord every time they load it up
 },
 
-KeySystem = true, -- Set this to true to use our key system
+KeySystem = false, -- Set this to true to use our key system
 KeySettings = {
     Title = "Mic up",
     Subtitle = "locked to trusted ppl only",
@@ -34,11 +34,14 @@ KeySettings = {
 }
 })
 
-local tab4 = Window:CreateTab("Yus scripts", nil) -- Title, Image
-local tab1 = Window:CreateTab("Player", nil) -- Title, Image
+local tab1 = Window:CreateTab("Local Player", nil) -- Title, Image
+-- local tab2 = Window:CreateTab("Players", nil) -- Title, Image
 local tab3 = Window:CreateTab("Exploits", nil) -- Title, Image
-local tab5 = Window:CreateTab("TPs [working on this]", nil) -- Title, Image
-
+local tab6 = Window:CreateTab("Map", nil)
+local tab7 = Window:CreateTab("Chat", nil)
+local tab4 = Window:CreateTab("TPs [working on this]", nil) -- Title, Image 
+local tab5 = Window:CreateTab("Animations", nil)
+local tab8 = Window:CreateTab("Freaky", nil)
 
 Rayfield:Notify({
 Title = "Script Loaded",
@@ -55,37 +58,37 @@ Actions = { -- Notification Buttons
 },
 })
 
--- local Slider = tab4:CreateSlider({
---     Name = "WalkSpeed",
---     Range = {0, 300},
---     Increment = 1,
---     Suffix = "Speed",
---     CurrentValue = 16,
---     Flag = "Slider1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
---     Callback = function(Value)
---            game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = (Value)
---     end,
---  })
+local Slider = tab1:CreateSlider({
+    Name = "WalkSpeed",
+    Range = {0, 300},
+    Increment = 1,
+    Suffix = "Speed",
+    CurrentValue = 16,
+    Flag = "Slider1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+    Callback = function(Value)
+           game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = (Value)
+    end,
+ })
 
---  local Button = tab4:CreateButton({
---     Name = "Clear Chat",
---     Interact = 'Click',
---     Callback = function()
---  if game:GetService("TextChatService").ChatVersion == Enum.ChatVersion.TextChatService then game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync("hi\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r.") else game:GetService("StarterGui"):SetCore("SendNotification", {Title = "Not Supported", Text = "This game has the legacy ROBLOX chat version. The script can only be used in the new version of the ROBLOX chat. Sorry :("}) end
---     end,
---  })
+ local Button = tab7:CreateButton({
+    Name = "Clear Chat",
+    Interact = 'Click',
+    Callback = function()
+ if game:GetService("TextChatService").ChatVersion == Enum.ChatVersion.TextChatService then game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync("hi\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r.") else game:GetService("StarterGui"):SetCore("SendNotification", {Title = "Not Supported", Text = "This game has the legacy ROBLOX chat version. The script can only be used in the new version of the ROBLOX chat. Sorry :("}) end
+    end,
+ })
 
---  local Button = tab4:CreateButton({
---     Name = "Dash Animation",
---     Interact = 'Click',
---     Callback = function()
---              loadstring(game:HttpGet("https://pastebin.com/raw/kgH8b7LD"))()
---     end,
---  })
+ local Button = tab5:CreateButton({
+    Name = "Dash Animation",
+    Interact = 'Click',
+    Callback = function()
+             loadstring(game:HttpGet("https://pastebin.com/raw/qWeSAumd"))()
+    end,
+ })
 
 
 
-local Button = tab4:CreateButton({
+local Button = tab3:CreateButton({
     Name = "ctrl click TP",
     Callback = function()
             local IsStudio = false
@@ -93,7 +96,7 @@ loadstring(game:HttpGet("https://pastebin.com/raw/2xGwLCAY"))()
     end,
 })
 
-local Button = tab4:CreateButton({
+local Button = tab3:CreateButton({
     Name = "rewind script",
     Callback = function()
             local IsStudio = false
@@ -101,7 +104,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/nomercy0000/rewind/re
     end,
 })
 
-local Button = tab4:CreateButton({
+local Button = tab3:CreateButton({
     Name = "infiniteyield",
     Callback = function()
             local IsStudio = false
@@ -109,15 +112,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/
     end,
 })
 
-local Button = tab4:CreateButton({
-    Name = "slider thingy",
-    Callback = function()
-            local IsStudio = false
-loadstring(game:HttpGet("https://raw.githubusercontent.com/0Ben1/fe/main/obf_11l7Y131YqJjZ31QmV5L8pI23V02b3191sEg26E75472Wl78Vi8870jRv5txZyL1.lua.txt"))()
-    end,
-})
-
-local Button = tab4:CreateButton({
+local Button = tab3:CreateButton({
     Name = "systembroken",
     Callback = function()
             local IsStudio = false
@@ -125,7 +120,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/H20CalibreYT/SystemBr
     end,
 })
 
-local Button = tab4:CreateButton({
+local Button = tab8:CreateButton({
     Name = "jerkoff",
     Callback = function()
             local IsStudio = false
@@ -133,7 +128,7 @@ loadstring(game:HttpGet("https://pastefy.app/YZoglOyJ/raw"))()
     end,
 })
 
-local Button = tab4:CreateButton({
+local Button = tab5:CreateButton({
     Name = "emote menu [KEY-,]",
     Callback = function()
             local IsStudio = false
@@ -141,7 +136,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/platinumicy/emotemenu
     end,
 })
 
-local Button = tab4:CreateButton({
+local Button = tab8:CreateButton({
     Name = "face bang",
     Callback = function()
             local IsStudio = false
@@ -149,7 +144,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/EnterpriseExperience/
     end,
 })
 
-local Button = tab4:CreateButton({
+local Button = tab6:CreateButton({
     Name = "graphics",
     Callback = function()
             local IsStudio = false
@@ -157,7 +152,7 @@ loadstring(game:HttpGet("https://pastebin.com/raw/F0vzkbCC"))()
     end,
 })
 
-local Button = tab4:CreateButton({
+local Button = tab3:CreateButton({
     Name = "noclip [N]",
     Callback = function()
             local IsStudio = false
@@ -165,7 +160,7 @@ loadstring(game:HttpGet("https://pastebin.com/raw/bNWy6Gvb"))()
     end,
 })
 
-local Button = tab4:CreateButton({
+local Button = tab6:CreateButton({
     Name = "baseplate v1.1",
     Callback = function()
             local IsStudio = false
@@ -173,7 +168,7 @@ loadstring(game:HttpGet("https://pastebin.com/raw/7Z71ga7C"))()
     end,
 })
 
-local Button = tab4:CreateButton({
+local Button = tab1:CreateButton({
     Name = "vc unbanner [WORKS]",
     Callback = function()
             local IsStudio = false
@@ -181,6 +176,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/platinumicy/unsuspend
     end,
 })
 
+-- start up scripts
 
 local player = game.Players.LocalPlayer
 
@@ -200,9 +196,6 @@ else
 end
 
 
--- Roblox Anti-AFK Script  
--- Made by aoki0x  
--- RemiAPE On Top!  
 
 wait(0.5)  
 
@@ -216,7 +209,7 @@ end)
 
 -- teleports [working on this.]
 
-local TeleportButton = tab5:CreateButton({
+local TeleportButton = tab4:CreateButton({
     Name = "TP To Private Room (Roof)",
     Callback = function()
        local player = game.Players.LocalPlayer
@@ -229,7 +222,7 @@ local TeleportButton = tab5:CreateButton({
        end
     end,
  })
- local TeleportButton = tab5:CreateButton({
+ local TeleportButton = tab4:CreateButton({
     Name = "TP To Stage Mic",
     Callback = function()
        local player = game.Players.LocalPlayer
@@ -242,7 +235,7 @@ local TeleportButton = tab5:CreateButton({
        end
     end,
  })
- local TeleportButton = tab5:CreateButton({
+ local TeleportButton = tab4:CreateButton({
     Name = "TP To Donut Shop (Behind Counter)",
     Callback = function()
        local player = game.Players.LocalPlayer
@@ -255,7 +248,7 @@ local TeleportButton = tab5:CreateButton({
        end
     end,
  })
- local TeleportButton = tab5:CreateButton({
+ local TeleportButton = tab4:CreateButton({
     Name = "TP To Tower (Highest Part)",
     Callback = function()
        local player = game.Players.LocalPlayer

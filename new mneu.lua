@@ -16,7 +16,7 @@ local Window = Rayfield:CreateWindow({
     },
     KeySystem = true, -- Set this to true to use our key system
     KeySettings = {
-       Title = "ChickenAdobo | Key",
+       Title = "D3V | Key",
        Subtitle = "Get the fucking key you new gen ðŸ˜¡",
        Note = "Join Server for the key discord.gg/Nj3WtEtM",
        FileName = "https://pastebin.com/raw/1tu21VN4", -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
@@ -367,7 +367,7 @@ local Toggle = MainTab:CreateToggle({
    end,
 })
 
-local MainSection = MainTab:CreateSection("Made by ChickenAdobo | R15 FE Animations Coming Soon..")
+local MainSection = MainTab:CreateSection("Made by D3V | R15 FE Animations Coming Soon..")
 
 local PlrTab = Window:CreateTab("😎Players", nil) -- Title, Image
 local Section = PlrTab:CreateSection("Fucking Fun Shit You New Gens")
