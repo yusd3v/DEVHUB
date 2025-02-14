@@ -625,6 +625,45 @@ local SitBlockToggle = tab6:CreateToggle({
 })
 
 
+getgenv().AnthonyShuffle = tab1:CreateToggle({
+    Name = "Michael Jackson Walk",
+    CurrentValue = false,
+    Flag = "DoTheMichael",
+    Callback = function(michaelJackson)
+        michaelJacksonActive = michaelJackson
+        if michaelJackson then
+            if getgenv().Humanoid.Sit or getgenv().Humanoid.Sit == true then
+                getgenv().Humanoid:ChangeState(3)
+                getgenv().Humanoid:ChangeState(3)
+            end
+            wait()
+            getgenv().HumanoidRootPart.Anchored = true
+            wait(0.2)
+            getgenv().Character:FindFirstChildWhichIsA("Humanoid").WalkSpeed = MichaelJackson_Speed
+            wait(0.1)
+            getgenv().Character:FindFirstChildWhichIsA("Humanoid"):PlayEmoteAndGetAnimTrackById(4391208058)
+            wait(0.2)
+            getgenv().Character:FindFirstChild("Animate").Disabled = true
+            wait(0.1)
+            getgenv().HumanoidRootPart.Anchored = false
+        else
+            if getgenv().Humanoid.Sit or getgenv().Humanoid.Sit == true then
+                getgenv().Humanoid:ChangeState(3)
+                getgenv().Humanoid:ChangeState(3)
+            end
+            wait()
+            getgenv().HumanoidRootPart.Anchored = true
+            wait()
+            getgenv().Character:FindFirstChild("Animate").Disabled = false
+            task.wait(.2)
+            getgenv().Character:FindFirstChildWhichIsA("Humanoid"):ChangeState(3)
+            wait(0.2)
+            getgenv().Humanoid.WalkSpeed = 16
+            wait(0.2)
+            getgenv().HumanoidRootPart.Anchored = false
+        end
+    end,})
+
 -- teleports [working on this.]
 
 local TeleportButton = tab4:CreateButton({
