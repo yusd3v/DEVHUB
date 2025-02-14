@@ -184,11 +184,6 @@ local Players = game:GetService("Players")
 local speaker = Players.LocalPlayer
 local bang, bangLoop, bangDied, bangAnim
 
-local RunService = game:GetService("RunService")
-local Players = game:GetService("Players")
-local speaker = Players.LocalPlayer
-local bang, bangLoop, bangDied, bangAnim
-
 -- Function to find player from partial name
 local function getTargetPlayer(name)
     name = string.lower(name)
@@ -243,15 +238,18 @@ local BangInput = tab2:CreateInput({
                 bangLoop = RunService.Heartbeat:Connect(function()
                     if speaker.Character and targetRoot and speaker.Character:FindFirstChild("HumanoidRootPart") then
                         local behindOffset = -targetRoot.CFrame.LookVector * 2 -- Move 2 studs behind
-                        local centeredOffset = targetRoot.CFrame.RightVector * 0 -- Ensures perfect centering
-                        local newPosition = targetRoot.CFrame.Position + behindOffset + centeredOffset
+                        local newPosition = targetRoot.CFrame.Position + behindOffset
                         speakerRoot.CFrame = CFrame.new(newPosition, targetRoot.Position) -- Face the target
                     end
                 end)
+
+                -- ✅ Clears input text after valid username is entered
+                BangInput:Set("")
             end
         end
     end
 })
+
 
  
 
