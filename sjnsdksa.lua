@@ -598,16 +598,16 @@ end)
 -- anti void
 game.Workspace.FallenPartsDestroyHeight = 0/0
 
-
 local Players = game:GetService("Players")
-
 local player = Players.LocalPlayer
+local sittingPrevention
+local sittingConnection
 
 local function preventSitting()
     if player.Character then
         local humanoid = player.Character:FindFirstChildOfClass("Humanoid")
         if humanoid then
-            humanoid.Seated:Connect(function(isSeated)
+            sittingConnection = humanoid.Seated:Connect(function(isSeated)
                 if isSeated then
                     humanoid.Sit = false -- Instantly force the player to stand
                 end
@@ -616,15 +616,35 @@ local function preventSitting()
     end
 end
 
--- Run the function on character spawn
-player.CharacterAdded:Connect(preventSitting)
-
--- Run it immediately if the player is already loaded in
-if player.Character then
+local function enableSittingPrevention()
+    sittingPrevention = player.CharacterAdded:Connect(preventSitting)
     preventSitting()
 end
 
+local function disableSittingPrevention()
+    if sittingPrevention then
+        sittingPrevention:Disconnect()
+        sittingPrevention = nil
+    end
+    if sittingConnection then
+        sittingConnection:Disconnect()
+        sittingConnection = nil
+    end
+end
 
+-- Toggle Button for Tab 6
+local SitBlockToggle = tab6:CreateToggle({
+    Name = "Block Sitting",
+    CurrentValue = false,
+    Flag = "SitBlock",
+    Callback = function(state)
+        if state then
+            enableSittingPrevention()
+        else
+            disableSittingPrevention()
+        end
+    end,
+})
 
 
 
