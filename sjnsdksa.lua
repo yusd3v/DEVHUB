@@ -105,6 +105,14 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/nomercy0000/rewind/re
 })
 
 local Button = tab3:CreateButton({
+    Name = "noclip [N]",
+    Callback = function()
+            local IsStudio = false
+loadstring(game:HttpGet("https://pastebin.com/raw/bNWy6Gvb"))()
+    end,
+})
+
+local Button = tab3:CreateButton({
     Name = "infiniteyield",
     Callback = function()
             local IsStudio = false
@@ -120,13 +128,6 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/H20CalibreYT/SystemBr
     end,
 })
 
-local Button = tab3:CreateButton({
-    Name = "noclip [N]",
-    Callback = function()
-            local IsStudio = false
-loadstring(game:HttpGet("https://pastebin.com/raw/bNWy6Gvb"))()
-    end,
-})
 
 local Button = tab8:CreateButton({
     Name = "jerkoff",
@@ -178,6 +179,74 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/platinumicy/unsuspend
 })
 
 
+local RunService = game:GetService("RunService")
+local Players = game:GetService("Players")
+local speaker = Players.LocalPlayer
+local bang, bangLoop, bangDied, bangAnim
+
+-- Function to find player from partial name
+local function getTargetPlayer(name)
+    name = string.lower(name)
+    for _, player in ipairs(Players:GetPlayers()) do
+        if string.lower(player.Name):sub(1, #name) == name or string.lower(player.DisplayName):sub(1, #name) == name then
+            return player
+        end
+    end
+    return nil
+end
+
+-- Bang Command Input
+local BangInput = tab2:CreateInput({
+    Name = "Bang Command",
+    PlaceholderText = "Enter Player Name",
+    RemoveTextAfterFocusLost = false,
+    Callback = function(playerName)
+        if not speaker or not speaker.Character then return end
+        local humanoid = speaker.Character:FindFirstChildWhichIsA("Humanoid")
+        local speakerRoot = speaker.Character:FindFirstChild("HumanoidRootPart")
+        if not humanoid or not speakerRoot then return end
+
+        -- Stop any existing animation
+        if bang then bang:Stop() end
+
+        -- Load animation
+        bangAnim = Instance.new("Animation")
+        bangAnim.AnimationId = humanoid.RigType == Enum.HumanoidRigType.R15 
+            and "rbxassetid://5918726674" or "rbxassetid://148840371"
+        
+        bang = humanoid:LoadAnimation(bangAnim)
+        bang:Play(0.1, 1, 1)
+        bang:AdjustSpeed(3)
+
+        -- Cleanup on death
+        if bangDied then bangDied:Disconnect() end
+        bangDied = humanoid.Died:Connect(function()
+            bang:Stop()
+            bangAnim:Destroy()
+            if bangLoop then bangLoop:Disconnect() end
+        end)
+
+        -- Find target player
+        local targetPlayer = getTargetPlayer(playerName)
+        if targetPlayer and targetPlayer.Character then
+            local targetRoot = targetPlayer.Character:FindFirstChild("HumanoidRootPart")
+            if targetRoot then
+                -- Disconnect previous loop
+                if bangLoop then bangLoop:Disconnect() end
+
+                -- Attach and move **EXACTLY BEHIND & CENTERED**
+                bangLoop = RunService.Heartbeat:Connect(function()
+                    if speaker.Character and targetRoot and speaker.Character:FindFirstChild("HumanoidRootPart") then
+                        local behindOffset = -targetRoot.CFrame.LookVector * 2 -- Move 2 studs behind
+                        local centeredOffset = targetRoot.CFrame.RightVector * 0 -- Ensures perfect centering
+                        local newPosition = targetRoot.CFrame.Position + behindOffset + centeredOffset
+                        speakerRoot.CFrame = CFrame.new(newPosition, targetRoot.Position) -- Face the target
+                    end
+                end)
+            end
+        end
+    end
+})
 
  
 
