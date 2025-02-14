@@ -248,7 +248,6 @@ local BangInput = tab2:CreateInput({
     end
 })
 
- 
 
 local UnbangButton = tab2:CreateButton({
     Name = "Stop Bang",
