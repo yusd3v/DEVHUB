@@ -233,7 +233,6 @@ local RunService = game:GetService("RunService")
 local Players = game:GetService("Players")
 local speaker = Players.LocalPlayer
 local bang, bangLoop, bangDied, bangAnim
-local bangSpeed = 3 -- Default speed
 
 -- Function to find player from partial name
 local function getTargetPlayer(name)
@@ -245,21 +244,6 @@ local function getTargetPlayer(name)
     end
     return nil
 end
-
--- Bang Speed Slider
-local BangSpeedSlider = tab2:CreateSlider({
-    Name = "Bang Speed",
-    Min = 1,
-    Max = 10,
-    Default = bangSpeed,
-    Increment = 0.1,
-    Callback = function(value)
-        bangSpeed = value
-        if bang then
-            bang:AdjustSpeed(bangSpeed)
-        end
-    end
-})
 
 -- Bang Command Input
 local BangInput = tab2:CreateInput({
@@ -282,7 +266,7 @@ local BangInput = tab2:CreateInput({
         
         bang = humanoid:LoadAnimation(bangAnim)
         bang:Play(0.1, 1, 1)
-        bang:AdjustSpeed(bangSpeed) -- Uses slider value
+        bang:AdjustSpeed(3)
 
         -- Cleanup on death
         if bangDied then bangDied:Disconnect() end
@@ -304,18 +288,15 @@ local BangInput = tab2:CreateInput({
                 bangLoop = RunService.Heartbeat:Connect(function()
                     if speaker.Character and targetRoot and speaker.Character:FindFirstChild("HumanoidRootPart") then
                         local behindOffset = -targetRoot.CFrame.LookVector * 2 -- Move 2 studs behind
-                        local newPosition = targetRoot.CFrame.Position + behindOffset
+                        local centeredOffset = targetRoot.CFrame.RightVector * 0 -- Ensures perfect centering
+                        local newPosition = targetRoot.CFrame.Position + behindOffset + centeredOffset
                         speakerRoot.CFrame = CFrame.new(newPosition, targetRoot.Position) -- Face the target
                     end
                 end)
             end
         end
-
-        -- 🆕 Clear input text after pressing enter
-        BangInput:Set("")
     end
 })
-
 
 
 
