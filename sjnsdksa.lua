@@ -201,9 +201,6 @@ local BangInput = tab2:CreateInput({
     PlaceholderText = "Enter Player Name",
     RemoveTextAfterFocusLost = false,
     Callback = function(playerName)
-        -- ✅ Clear input every time, no matter what
-        BangInput:Set("")
-
         if not speaker or not speaker.Character then return end
         local humanoid = speaker.Character:FindFirstChildWhichIsA("Humanoid")
         local speakerRoot = speaker.Character:FindFirstChild("HumanoidRootPart")
@@ -245,11 +242,13 @@ local BangInput = tab2:CreateInput({
                         speakerRoot.CFrame = CFrame.new(newPosition, targetRoot.Position) -- Face the target
                     end
                 end)
+
+                -- ✅ Clears input text after valid username is entered
+                BangInput:Set("")
             end
         end
     end
 })
-
 
 
  
