@@ -664,6 +664,23 @@ getgenv().AnthonyShuffle = tab1:CreateToggle({
         end
     end,})
 
+    local MichaelJackson_Speed = 120
+    local michaelJacksonActive = false
+
+    getgenv().SetWalkSpeedShuffle = Tab1:CreateSlider({
+    Name = "Michael Jackson Walk-Speed",
+    Range = {5, 500},
+    Increment = 1,
+    Suffix = "",
+    CurrentValue = 120,
+    Flag = "MichaelJacksonSpeed",
+    Callback = function(get_michael_shuffle_speed)
+        MichaelJackson_Speed = get_michael_shuffle_speed
+        if michaelJacksonActive then
+            getgenv().Character:FindFirstChildWhichIsA("Humanoid").WalkSpeed = MichaelJackson_Speed
+        end
+    end,})
+
 -- teleports [working on this.]
 
 local TeleportButton = tab4:CreateButton({
