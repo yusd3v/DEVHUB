@@ -627,6 +627,73 @@ local SitBlockToggle = tab6:CreateToggle({
 
 
 
+-- Function to find a player by partial or full name
+local function findPlayerByName(name)
+    name = name:lower()
+    for _, player in ipairs(game.Players:GetPlayers()) do
+        if player.Name:lower():find(name) or player.DisplayName:lower():find(name) then
+            return player
+        end
+    end
+    return nil
+end
+
+-- Function to unclaim a player's booth
+local function unclaimPlayerBooth(playerName)
+    local targetPlayer = findPlayerByName(playerName)
+    if not targetPlayer then
+        getgenv().notify("Error:", "Player not found!", 6.5)
+        return
+    end
+
+    -- Assuming 'Booth' is a folder in the Workspace containing all booths
+    local boothsFolder = game.Workspace:FindFirstChild("Booth")
+    if not boothsFolder then
+        getgenv().notify("Error:", "Booth folder not found in Workspace!", 6.5)
+        return
+    end
+
+    -- Function to find the booth owned by the target player
+    local function getPlayerBooth()
+        for _, booth in pairs(boothsFolder:GetChildren()) do
+            local ownerLabel = booth:FindFirstChild("Username") and booth.Username:FindFirstChild("BillboardGui") and booth.Username.BillboardGui:FindFirstChild("TextLabel")
+            if ownerLabel and ownerLabel.Text == "Owned by: " .. targetPlayer.Name then
+                return booth
+            end
+        end
+        return nil
+    end
+
+    local playerBooth = getPlayerBooth()
+    if not playerBooth then
+        getgenv().notify("Error:", targetPlayer.Name .. " does not own a booth!", 6.5)
+        return
+    end
+
+    -- Fire the server event to unclaim the booth
+    local deleteBoothEvent = game.ReplicatedStorage:FindFirstChild("DeleteBoothOwnership")
+    if deleteBoothEvent then
+        deleteBoothEvent:FireServer(playerBooth)
+        getgenv().notify("Success:", "Unclaimed " .. targetPlayer.Name .. "'s booth.", 6.5)
+    else
+        getgenv().notify("Error:", "DeleteBoothOwnership event not found!", 6.5)
+    end
+end
+
+-- Input field in Tab11 to unclaim a player's booth
+getgenv().unclaimPlrBooth = Tab1:CreateInput({
+    Name = "Unclaim A Booth",
+    PlaceholderText = "User Here",
+    RemoveTextAfterFocusLost = true,
+    Callback = function(unclaimTheirBooth)
+        unclaimPlayerBooth(unclaimTheirBooth)
+    end
+})
+
+
+
+
+
 -- teleports [working on this.]
 
 local TeleportButton = tab4:CreateButton({
