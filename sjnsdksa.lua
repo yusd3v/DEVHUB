@@ -680,13 +680,13 @@ local function unclaimPlayerBooth(playerName)
     end
 end
 
--- Input field in Tab11 to unclaim a player's booth
+-- Input field in Tab1 to unclaim a player's booth
 getgenv().unclaimPlrBooth = Tab1:CreateInput({
     Name = "Unclaim A Booth",
-    PlaceholderText = "User Here",
+    PlaceholderText = "Enter Player Name",
     RemoveTextAfterFocusLost = true,
-    Callback = function(unclaimTheirBooth)
-        unclaimPlayerBooth(unclaimTheirBooth)
+    Callback = function(inputText)
+        unclaimPlayerBooth(inputText)
     end
 })
 
