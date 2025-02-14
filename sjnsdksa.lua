@@ -70,6 +70,149 @@ local Slider = tab1:CreateSlider({
     end,
  })
 
+ local JumpHeightSlider = tab1:CreateSlider({
+    Name = "Jump Height",
+    Range = {0, 150}, -- Reasonable range for jump height
+    Increment = 1,
+    Suffix = "Height",
+    CurrentValue = 7.2, -- Default Roblox jump height
+    Flag = "Slider2",
+    Callback = function(Value)
+        local humanoid = game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+        if humanoid then
+            humanoid.UseJumpPower = false -- Ensure JumpHeight is used
+            humanoid.JumpHeight = Value
+        end
+    end,
+})
+
+
+-- Services
+local RunService = game:GetService("RunService")
+local UserInputService = game:GetService("UserInputService")
+local Players = game:GetService("Players")
+
+-- Variables
+local player = Players.LocalPlayer
+local flying = false
+local flySpeed = 50 -- Default fly speed
+local flyBodyGyro, flyBodyVelocity
+local flyLoop
+
+-- Function to start flying
+local function startFly()
+    if flying then return end
+    local char = player.Character
+    if not char then return end
+
+    local root = char:FindFirstChild("HumanoidRootPart")
+    local humanoid = char:FindFirstChildWhichIsA("Humanoid")
+    if not root or not humanoid then return end
+
+    -- Enable flying state
+    flying = true
+    humanoid.PlatformStand = true -- Prevents falling animation
+
+    -- BodyGyro for rotation stability
+    flyBodyGyro = Instance.new("BodyGyro", root)
+    flyBodyGyro.P = 90000
+    flyBodyGyro.MaxTorque = Vector3.new(400000, 400000, 400000)
+    flyBodyGyro.CFrame = root.CFrame
+
+    -- BodyVelocity for movement
+    flyBodyVelocity = Instance.new("BodyVelocity", root)
+    flyBodyVelocity.Velocity = Vector3.new(0, 0, 0)
+    flyBodyVelocity.MaxForce = Vector3.new(4000, 4000, 4000)
+
+    -- Flight Loop
+    flyLoop = RunService.Heartbeat:Connect(function()
+        if not flying or not root or not char then
+            flyLoop:Disconnect()
+            return
+        end
+
+        local moveDirection = Vector3.zero
+        local cameraLook = game.Workspace.CurrentCamera.CFrame.LookVector
+        local rightVector = game.Workspace.CurrentCamera.CFrame.RightVector
+
+        -- Movement Inputs (Fly in Any Direction You're Looking)
+        if UserInputService:IsKeyDown(Enum.KeyCode.W) then
+            moveDirection = moveDirection + cameraLook -- Now follows exact camera look
+        end
+        if UserInputService:IsKeyDown(Enum.KeyCode.S) then
+            moveDirection = moveDirection - cameraLook
+        end
+        if UserInputService:IsKeyDown(Enum.KeyCode.A) then
+            moveDirection = moveDirection - rightVector
+        end
+        if UserInputService:IsKeyDown(Enum.KeyCode.D) then
+            moveDirection = moveDirection + rightVector
+        end
+        if UserInputService:IsKeyDown(Enum.KeyCode.Q) then
+            moveDirection = moveDirection + Vector3.new(0, 1, 0) -- Up
+        end
+        if UserInputService:IsKeyDown(Enum.KeyCode.E) then
+            moveDirection = moveDirection - Vector3.new(0, 1, 0) -- Down
+        end
+
+        -- Normalize and apply movement
+        if moveDirection.Magnitude > 0 then
+            moveDirection = moveDirection.Unit * flySpeed
+        end
+        flyBodyVelocity.Velocity = moveDirection
+        flyBodyGyro.CFrame = game.Workspace.CurrentCamera.CFrame
+    end)
+end
+
+-- Function to stop flying
+local function stopFly()
+    flying = false
+    local char = player.Character
+    if not char then return end
+
+    local root = char:FindFirstChild("HumanoidRootPart")
+    local humanoid = char:FindFirstChildWhichIsA("Humanoid")
+    if humanoid then
+        humanoid.PlatformStand = false
+    end
+
+    -- Clean up
+    if flyBodyGyro then flyBodyGyro:Destroy() end
+    if flyBodyVelocity then flyBodyVelocity:Destroy() end
+    if flyLoop then flyLoop:Disconnect() end
+end
+
+-- Toggle Button for Fly
+local FlyToggle = tab1:CreateToggle({
+    Name = "Fly",
+    CurrentValue = false,
+    Flag = "FlyToggle",
+    Callback = function(state)
+        if state then
+            startFly()
+        else
+            stopFly()
+        end
+    end,
+})
+
+-- Flight Speed Slider
+local FlySpeedSlider = tab1:CreateSlider({
+    Name = "Fly Speed",
+    Range = {10, 150},
+    Increment = 5,
+    Suffix = " Speed",
+    CurrentValue = flySpeed,
+    Flag = "FlySpeedSlider",
+    Callback = function(Value)
+        flySpeed = Value
+    end,
+})
+
+
+
+
+
  local Button = tab7:CreateButton({
     Name = "Clear Chat",
     Interact = 'Click',
