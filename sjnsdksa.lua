@@ -184,40 +184,12 @@ local Players = game:GetService("Players")
 local speaker = Players.LocalPlayer
 local bang, bangLoop, bangDied, bangAnim
 
--- Function to get player from name (case-insensitive)
-local function getTargetPlayer(name)
-    for _, player in ipairs(Players:GetPlayers()) do
-        if string.lower(player.Name) == string.lower(name) or string.lower(player.DisplayName) == string.lower(name) then
-            return player
-        end
-    end
-    return nil
-end
-
--- Bang Command Input
 local RunService = game:GetService("RunService")
 local Players = game:GetService("Players")
 local speaker = Players.LocalPlayer
 local bang, bangLoop, bangDied, bangAnim
 
--- Function to get player from name (case-insensitive)
-local function getTargetPlayer(name)
-    for _, player in ipairs(Players:GetPlayers()) do
-        if string.lower(player.Name) == string.lower(name) or string.lower(player.DisplayName) == string.lower(name) then
-            return player
-        end
-    end
-    return nil
-end
-
--- Bang Command Input
--- Variables
-local RunService = game:GetService("RunService")
-local Players = game:GetService("Players")
-local speaker = Players.LocalPlayer
-local bang, bangLoop, bangDied, bangAnim
-
--- Function to find player from partial name (case-insensitive)
+-- Function to find player from partial name
 local function getTargetPlayer(name)
     name = string.lower(name)
     for _, player in ipairs(Players:GetPlayers()) do
@@ -264,12 +236,16 @@ local BangInput = tab2:CreateInput({
         if targetPlayer and targetPlayer.Character then
             local targetRoot = targetPlayer.Character:FindFirstChild("HumanoidRootPart")
             if targetRoot then
-                -- Set up movement to stay BEHIND the player
+                -- Disconnect previous loop
                 if bangLoop then bangLoop:Disconnect() end
+
+                -- Attach and move **EXACTLY BEHIND & CENTERED**
                 bangLoop = RunService.Heartbeat:Connect(function()
                     if speaker.Character and targetRoot and speaker.Character:FindFirstChild("HumanoidRootPart") then
-                        local behindOffset = -targetRoot.CFrame.LookVector * 1.5 -- Moves behind
-                        speakerRoot.CFrame = targetRoot.CFrame * CFrame.new(behindOffset.X, 0, behindOffset.Z)
+                        local behindOffset = -targetRoot.CFrame.LookVector * 2 -- Move 2 studs behind
+                        local centeredOffset = targetRoot.CFrame.RightVector * 0 -- Ensures perfect centering
+                        local newPosition = targetRoot.CFrame.Position + behindOffset + centeredOffset
+                        speakerRoot.CFrame = CFrame.new(newPosition, targetRoot.Position) -- Face the target
                     end
                 end)
             end
@@ -278,6 +254,7 @@ local BangInput = tab2:CreateInput({
 })
 
  
+
 local UnbangButton = tab2:CreateButton({
     Name = "Stop Bang",
     Callback = function()
@@ -287,6 +264,7 @@ local UnbangButton = tab2:CreateButton({
         if bangAnim then bangAnim:Destroy() end
     end
 })
+
 -- zoom out 
 local player = game.Players.LocalPlayer
 
