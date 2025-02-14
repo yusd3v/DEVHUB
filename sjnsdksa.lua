@@ -180,6 +180,8 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/platinumicy/unsuspend
 
 
 
+
+-- Bang Command Input
 local RunService = game:GetService("RunService")
 local Players = game:GetService("Players")
 local speaker = Players.LocalPlayer
@@ -248,6 +250,7 @@ local BangInput = tab2:CreateInput({
         end
     end
 })
+
 
  
 
