@@ -188,11 +188,12 @@ local BangInput = tab2:CreateInput({
         if not speaker or not speaker.Character then return end
 
         local humanoid = speaker.Character:FindFirstChildWhichIsA("Humanoid")
-        if not humanoid then return end
+        local speakerRoot = speaker.Character:FindFirstChild("HumanoidRootPart")
+        if not humanoid or not speakerRoot then return end
 
         -- Load the animation
         local bangAnim = Instance.new("Animation")
-        bangAnim.AnimationId = speaker.Character:FindFirstChildOfClass("Humanoid").RigType == Enum.HumanoidRigType.R15 
+        bangAnim.AnimationId = humanoid.RigType == Enum.HumanoidRigType.R15 
             and "rbxassetid://5918726674" or "rbxassetid://148840371"
 
         local bang = humanoid:LoadAnimation(bangAnim)
@@ -200,10 +201,10 @@ local BangInput = tab2:CreateInput({
         bang:AdjustSpeed(3) -- Default speed
 
         -- Cleanup on death
+        if bangDied then bangDied:Disconnect() end
         bangDied = humanoid.Died:Connect(function()
             bang:Stop()
             bangAnim:Destroy()
-            bangDied:Disconnect()
             if bangLoop then bangLoop:Disconnect() end
         end)
 
@@ -216,18 +217,18 @@ local BangInput = tab2:CreateInput({
             end
         end
 
-        -- If the target player is found, follow them
+        -- If the target player is found, attach to them
         if targetPlayer and targetPlayer.Character then
-            local bangOffset = CFrame.new(0, 0, 1.1)
-            bangLoop = game:GetService("RunService").Stepped:Connect(function()
-                pcall(function()
-                    local otherRoot = targetPlayer.Character:FindFirstChild("HumanoidRootPart")
-                    local speakerRoot = speaker.Character:FindFirstChild("HumanoidRootPart")
-                    if otherRoot and speakerRoot then
-                        speakerRoot.CFrame = otherRoot.CFrame * bangOffset
-                    end
+            local targetRoot = targetPlayer.Character:FindFirstChild("HumanoidRootPart")
+            if targetRoot then
+                local bangOffset = CFrame.new(0, 0, 1.1)
+                if bangLoop then bangLoop:Disconnect() end
+                bangLoop = game:GetService("RunService").Stepped:Connect(function()
+                    pcall(function()
+                        speakerRoot.CFrame = targetRoot.CFrame * bangOffset
+                    end)
                 end)
-            end)
+            end
         end
     end
 })
