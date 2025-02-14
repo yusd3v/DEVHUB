@@ -37,7 +37,7 @@ KeySettings = {
 local tab4 = Window:CreateTab("Yus scripts", nil) -- Title, Image
 -- local tab1 = Window:CreateTab("Player", nil) -- Title, Image
 -- local tab3 = Window:CreateTab("Exploits", nil) -- Title, Image
--- local tab5 = Window:CreateTab("TPs [working on this]", nil) -- Title, Image
+local tab5 = Window:CreateTab("TPs [working on this]", nil) -- Title, Image
 
 
 Rayfield:Notify({
