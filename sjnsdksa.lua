@@ -599,6 +599,33 @@ end)
 game.Workspace.FallenPartsDestroyHeight = 0/0
 
 
+local Players = game:GetService("Players")
+
+local player = Players.LocalPlayer
+
+local function preventSitting()
+    if player.Character then
+        local humanoid = player.Character:FindFirstChildOfClass("Humanoid")
+        if humanoid then
+            humanoid.Seated:Connect(function(isSeated)
+                if isSeated then
+                    humanoid.Sit = false -- Instantly force the player to stand
+                end
+            end)
+        end
+    end
+end
+
+-- Run the function on character spawn
+player.CharacterAdded:Connect(preventSitting)
+
+-- Run it immediately if the player is already loaded in
+if player.Character then
+    preventSitting()
+end
+
+
+
 
 
 
