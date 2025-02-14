@@ -177,8 +177,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/platinumicy/unsuspend
     end,
 })
 
--- start up scripts
-
+-- zoom out 
 local player = game.Players.LocalPlayer
 
 -- Ensure the script only runs once
@@ -196,8 +195,7 @@ else
     print("CameraMaxZoomDistance set successfully!")
 end
 
-
-
+-- anti AFK
 wait(0.5)  
 
 local VirtualUser = game:service("VirtualUser")  
@@ -207,6 +205,13 @@ Player.Idled:connect(function()
     VirtualUser:CaptureController()  
     VirtualUser:ClickButton2(Vector2.new())  
 end)
+
+-- anti void
+game.Workspace.FallenPartsDestroyHeight = 0/0
+
+
+
+
 
 -- teleports [working on this.]
 
