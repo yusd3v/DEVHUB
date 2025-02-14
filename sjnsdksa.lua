@@ -192,13 +192,14 @@ local BangInput = tab2:CreateInput({
         if not humanoid or not speakerRoot then return end
 
         -- Load the animation
-        local bangAnim = Instance.new("Animation")
+        if bang then bang:Stop() end
+        bangAnim = Instance.new("Animation")
         bangAnim.AnimationId = humanoid.RigType == Enum.HumanoidRigType.R15 
             and "rbxassetid://5918726674" or "rbxassetid://148840371"
 
-        local bang = humanoid:LoadAnimation(bangAnim)
+        bang = humanoid:LoadAnimation(bangAnim)
         bang:Play(0.1, 1, 1)
-        bang:AdjustSpeed(3) -- Default speed
+        bang:AdjustSpeed(3)
 
         -- Cleanup on death
         if bangDied then bangDied:Disconnect() end
@@ -217,42 +218,32 @@ local BangInput = tab2:CreateInput({
             end
         end
 
-        -- If the target player is found, attach to them
+        -- Attach if player is found
         if targetPlayer and targetPlayer.Character then
             local targetRoot = targetPlayer.Character:FindFirstChild("HumanoidRootPart")
             if targetRoot then
-                local bangOffset = CFrame.new(0, 0, 1.1)
+                local bangOffset = CFrame.new(0, 0, -1.5) -- Attach behind them
                 if bangLoop then bangLoop:Disconnect() end
                 bangLoop = game:GetService("RunService").Stepped:Connect(function()
-                    pcall(function()
+                    if speaker.Character and speaker.Character:FindFirstChild("HumanoidRootPart") then
                         speakerRoot.CFrame = targetRoot.CFrame * bangOffset
-                    end)
+                    end
                 end)
             end
         end
     end
 })
-
  
 
-local Button = tab2:CreateButton({
-    Name = "Unbang",
+local UnbangButton = tab2:CreateButton({
+    Name = "Stop Bang",
     Callback = function()
-       if bangDied then
-          bangDied:Disconnect()
-       end
-       if bang then
-          bang:Stop()
-       end
-       if bangAnim then
-          bangAnim:Destroy()
-       end
-       if bangLoop then
-          bangLoop:Disconnect()
-       end
-    end,
- })
- 
+        if bangDied then bangDied:Disconnect() end
+        if bangLoop then bangLoop:Disconnect() end
+        if bang then bang:Stop() end
+        if bangAnim then bangAnim:Destroy() end
+    end
+})
 
 -- zoom out 
 local player = game.Players.LocalPlayer
