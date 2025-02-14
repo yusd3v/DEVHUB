@@ -197,7 +197,7 @@ end
 
 -- Bang Command Input
 local BangInput = tab2:CreateInput({
-    Name = "Bang Command",
+    Name = "Bang Player",
     PlaceholderText = "Enter Player Name",
     RemoveTextAfterFocusLost = false,
     Callback = function(playerName)
