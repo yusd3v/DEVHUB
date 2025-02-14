@@ -55,33 +55,33 @@ Actions = { -- Notification Buttons
 },
 })
 
-local Slider = tab4:CreateSlider({
-    Name = "WalkSpeed",
-    Range = {0, 300},
-    Increment = 1,
-    Suffix = "Speed",
-    CurrentValue = 16,
-    Flag = "Slider1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
-    Callback = function(Value)
-           game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = (Value)
-    end,
- })
+-- local Slider = tab4:CreateSlider({
+--     Name = "WalkSpeed",
+--     Range = {0, 300},
+--     Increment = 1,
+--     Suffix = "Speed",
+--     CurrentValue = 16,
+--     Flag = "Slider1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+--     Callback = function(Value)
+--            game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = (Value)
+--     end,
+--  })
 
- local Button = tab4:CreateButton({
-    Name = "Clear Chat",
-    Interact = 'Click',
-    Callback = function()
- if game:GetService("TextChatService").ChatVersion == Enum.ChatVersion.TextChatService then game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync("hi\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r.") else game:GetService("StarterGui"):SetCore("SendNotification", {Title = "Not Supported", Text = "This game has the legacy ROBLOX chat version. The script can only be used in the new version of the ROBLOX chat. Sorry :("}) end
-    end,
- })
+--  local Button = tab4:CreateButton({
+--     Name = "Clear Chat",
+--     Interact = 'Click',
+--     Callback = function()
+--  if game:GetService("TextChatService").ChatVersion == Enum.ChatVersion.TextChatService then game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync("hi\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r\r.") else game:GetService("StarterGui"):SetCore("SendNotification", {Title = "Not Supported", Text = "This game has the legacy ROBLOX chat version. The script can only be used in the new version of the ROBLOX chat. Sorry :("}) end
+--     end,
+--  })
 
- local Button = tab4:CreateButton({
-    Name = "Dash Animation",
-    Interact = 'Click',
-    Callback = function()
-             loadstring(game:HttpGet("https://pastebin.com/raw/kgH8b7LD"))()
-    end,
- })
+--  local Button = tab4:CreateButton({
+--     Name = "Dash Animation",
+--     Interact = 'Click',
+--     Callback = function()
+--              loadstring(game:HttpGet("https://pastebin.com/raw/kgH8b7LD"))()
+--     end,
+--  })
 
 
 
