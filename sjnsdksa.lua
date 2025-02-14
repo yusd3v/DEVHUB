@@ -184,47 +184,54 @@ local BangInput = tab2:CreateInput({
     PlaceholderText = "Enter Player Name",
     RemoveTextAfterFocusLost = false,
     Callback = function(playerName)
-       local speaker = game.Players.LocalPlayer
-       if not speaker or not speaker.Character then return end
- 
-       local humanoid = speaker.Character:FindFirstChildWhichIsA("Humanoid")
-       if not humanoid then return end
- 
-       -- Load the animation
-       bangAnim = Instance.new("Animation")
-       bangAnim.AnimationId = speaker.Character:FindFirstChildOfClass("Humanoid").RigType == Enum.HumanoidRigType.R15 
-          and "rbxassetid://5918726674" or "rbxassetid://148840371"
- 
-       bang = humanoid:LoadAnimation(bangAnim)
-       bang:Play(0.1, 1, 1)
-       bang:AdjustSpeed(3) -- Default speed
- 
-       -- Cleanup on death
-       bangDied = humanoid.Died:Connect(function()
-          bang:Stop()
-          bangAnim:Destroy()
-          bangDied:Disconnect()
-          if bangLoop then bangLoop:Disconnect() end
-       end)
- 
-       -- Get target player
-       local targetPlayer = game.Players:FindFirstChild(playerName)
-       if targetPlayer and targetPlayer.Character then
-          local bangOffset = CFrame.new(0, 0, 1.1)
-          bangLoop = game:GetService("RunService").Stepped:Connect(function()
-             pcall(function()
-                local otherRoot = targetPlayer.Character:FindFirstChild("HumanoidRootPart")
-                if otherRoot then
-                   local speakerRoot = speaker.Character:FindFirstChild("HumanoidRootPart")
-                   if speakerRoot then
-                      speakerRoot.CFrame = otherRoot.CFrame * bangOffset
-                   end
-                end
-             end)
-          end)
-       end
+        local speaker = game.Players.LocalPlayer
+        if not speaker or not speaker.Character then return end
+
+        local humanoid = speaker.Character:FindFirstChildWhichIsA("Humanoid")
+        if not humanoid then return end
+
+        -- Load the animation
+        local bangAnim = Instance.new("Animation")
+        bangAnim.AnimationId = speaker.Character:FindFirstChildOfClass("Humanoid").RigType == Enum.HumanoidRigType.R15 
+            and "rbxassetid://5918726674" or "rbxassetid://148840371"
+
+        local bang = humanoid:LoadAnimation(bangAnim)
+        bang:Play(0.1, 1, 1)
+        bang:AdjustSpeed(3) -- Default speed
+
+        -- Cleanup on death
+        bangDied = humanoid.Died:Connect(function()
+            bang:Stop()
+            bangAnim:Destroy()
+            bangDied:Disconnect()
+            if bangLoop then bangLoop:Disconnect() end
+        end)
+
+        -- Get target player (case-insensitive search)
+        local targetPlayer = nil
+        for _, player in ipairs(game.Players:GetPlayers()) do
+            if string.lower(player.Name) == string.lower(playerName) or string.lower(player.DisplayName) == string.lower(playerName) then
+                targetPlayer = player
+                break
+            end
+        end
+
+        -- If the target player is found, follow them
+        if targetPlayer and targetPlayer.Character then
+            local bangOffset = CFrame.new(0, 0, 1.1)
+            bangLoop = game:GetService("RunService").Stepped:Connect(function()
+                pcall(function()
+                    local otherRoot = targetPlayer.Character:FindFirstChild("HumanoidRootPart")
+                    local speakerRoot = speaker.Character:FindFirstChild("HumanoidRootPart")
+                    if otherRoot and speakerRoot then
+                        speakerRoot.CFrame = otherRoot.CFrame * bangOffset
+                    end
+                end)
+            end)
+        end
     end
- })
+})
+
  
 
 local Button = tab2:CreateButton({
