@@ -211,6 +211,24 @@ local function getTargetPlayer(name)
 end
 
 -- Bang Command Input
+-- Variables
+local RunService = game:GetService("RunService")
+local Players = game:GetService("Players")
+local speaker = Players.LocalPlayer
+local bang, bangLoop, bangDied, bangAnim
+
+-- Function to find player from partial name (case-insensitive)
+local function getTargetPlayer(name)
+    name = string.lower(name)
+    for _, player in ipairs(Players:GetPlayers()) do
+        if string.lower(player.Name):sub(1, #name) == name or string.lower(player.DisplayName):sub(1, #name) == name then
+            return player
+        end
+    end
+    return nil
+end
+
+-- Bang Command Input
 local BangInput = tab2:CreateInput({
     Name = "Bang Command",
     PlaceholderText = "Enter Player Name",
@@ -251,13 +269,14 @@ local BangInput = tab2:CreateInput({
                 bangLoop = RunService.Heartbeat:Connect(function()
                     if speaker.Character and targetRoot and speaker.Character:FindFirstChild("HumanoidRootPart") then
                         local behindOffset = -targetRoot.CFrame.LookVector * 1.5 -- Moves behind
-                        speakerRoot.CFrame = targetRoot.CFrame * CFrame.new(behindOffset)
+                        speakerRoot.CFrame = targetRoot.CFrame * CFrame.new(behindOffset.X, 0, behindOffset.Z)
                     end
                 end)
             end
         end
     end
 })
+
  
 local UnbangButton = tab2:CreateButton({
     Name = "Stop Bang",
