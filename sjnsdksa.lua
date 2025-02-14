@@ -120,6 +120,14 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/H20CalibreYT/SystemBr
     end,
 })
 
+local Button = tab3:CreateButton({
+    Name = "noclip [N]",
+    Callback = function()
+            local IsStudio = false
+loadstring(game:HttpGet("https://pastebin.com/raw/bNWy6Gvb"))()
+    end,
+})
+
 local Button = tab8:CreateButton({
     Name = "jerkoff",
     Callback = function()
@@ -152,13 +160,6 @@ loadstring(game:HttpGet("https://pastebin.com/raw/F0vzkbCC"))()
     end,
 })
 
-local Button = tab3:CreateButton({
-    Name = "noclip [N]",
-    Callback = function()
-            local IsStudio = false
-loadstring(game:HttpGet("https://pastebin.com/raw/bNWy6Gvb"))()
-    end,
-})
 
 local Button = tab6:CreateButton({
     Name = "baseplate v1.1",
