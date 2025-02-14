@@ -210,14 +210,13 @@ local FlySpeedSlider = tab1:CreateSlider({
 })
 
 
-
 -- Services
 local Players = game:GetService("Players")
 
 -- Variables
 local player = Players.LocalPlayer
 local headsitting = false
-local alignPosition, alignOrientation
+local weld
 
 -- Function to find a player by partial name
 local function getTargetPlayer(name)
@@ -240,50 +239,26 @@ local function forceSit()
     end
 end
 
--- Function to teleport and **sit properly on** a player's head
+-- Function to sit properly on a player's head
 local function headSit(targetPlayer)
     if not player.Character or not targetPlayer or not targetPlayer.Character then return end
     local targetHead = targetPlayer.Character:FindFirstChild("Head")
     local playerRoot = player.Character:FindFirstChild("HumanoidRootPart")
 
     if targetHead and playerRoot then
-        -- **Teleport directly to the head before sitting**
-        playerRoot.CFrame = targetHead.CFrame * CFrame.new(0, 1.1, 0) -- Slightly above before attaching
+        -- Remove existing weld
+        if weld then
+            weld:Destroy()
+        end
 
-        -- Remove existing alignments
-        if alignPosition then alignPosition:Destroy() end
-        if alignOrientation then alignOrientation:Destroy() end
+        -- Create a new Weld constraint
+        weld = Instance.new("Weld")
+        weld.Part0 = playerRoot
+        weld.Part1 = targetHead
+        weld.C0 = CFrame.new(0, -1.5, 0) -- Adjust this offset as needed
+        weld.Parent = playerRoot
 
-        -- Create Attachments
-        local targetAttachment = targetHead:FindFirstChild("HeadSitAttachment") or Instance.new("Attachment", targetHead)
-        targetAttachment.Name = "HeadSitAttachment"
-
-        local playerAttachment = playerRoot:FindFirstChild("HeadSitAttachment") or Instance.new("Attachment", playerRoot)
-        playerAttachment.Name = "HeadSitAttachment"
-
-        -- **Lower the player onto the head properly**
-        playerAttachment.Position = Vector3.new(0, -1.9, 0)  -- Moves the player **down into proper sitting position**
-        targetAttachment.Position = Vector3.new(0, 0.5, 0)   -- Adjusted head attachment for correct alignment
-
-        -- Create AlignPosition for sitting
-        alignPosition = Instance.new("AlignPosition")
-        alignPosition.Attachment0 = playerAttachment
-        alignPosition.Attachment1 = targetAttachment
-        alignPosition.RigidityEnabled = true
-        alignPosition.MaxForce = math.huge
-        alignPosition.Responsiveness = 50
-        alignPosition.Parent = playerRoot
-
-        -- Create AlignOrientation to keep upright
-        alignOrientation = Instance.new("AlignOrientation")
-        alignOrientation.Attachment0 = playerAttachment
-        alignOrientation.Attachment1 = targetAttachment
-        alignOrientation.RigidityEnabled = true
-        alignOrientation.MaxTorque = math.huge
-        alignOrientation.Responsiveness = 50
-        alignOrientation.Parent = playerRoot
-
-        -- **Force sit animation**
+        -- Force sit animation
         forceSit()
 
         headsitting = true
@@ -292,8 +267,10 @@ end
 
 -- Function to stop headsitting
 local function unHeadSit()
-    if alignPosition then alignPosition:Destroy() end
-    if alignOrientation then alignOrientation:Destroy() end
+    if weld then
+        weld:Destroy()
+        weld = nil
+    end
     headsitting = false
 
     -- Reset sitting
@@ -305,7 +282,7 @@ local function unHeadSit()
     end
 end
 
--- **Headsit Input Box (Teleports & Sits)**
+-- Headsit Input Box (Teleports & Sits)
 local HeadSitInput = tab2:CreateInput({
     Name = "Headsit on Player",
     PlaceholderText = "Enter Player Name",
