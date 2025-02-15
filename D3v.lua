@@ -33,7 +33,7 @@ KeySettings = {
     Key = {"w"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
 }
 })
-
+local tab11 = Window:CreateTab("Home", nil) -- Title, Image
 local tab1 = Window:CreateTab("Local Player", nil) -- Title, Image
 local tab2 = Window:CreateTab("Players", nil) -- Title, Image
 local tab3 = Window:CreateTab("Exploits", nil) -- Title, Image
@@ -41,7 +41,9 @@ local tab6 = Window:CreateTab("Map", nil)
 local tab7 = Window:CreateTab("Chat", nil)
 local tab4 = Window:CreateTab("TPs [working on this]", nil) -- Title, Image 
 local tab5 = Window:CreateTab("Animations", nil)
+local tab9 = Window:CreateTab("Booths", nil)
 local tab8 = Window:CreateTab("Freaky", nil)
+local tab10 = Window:CreateTab("Dev stuff [TEMP]", nil)
 
 Rayfield:Notify({
 Title = "Script Loaded",
@@ -305,6 +307,13 @@ local UnHeadSitButton = tab2:CreateButton({
 
 
 
+local Button = tab10:CreateButton({
+    Name = "Cord Grabber",
+    Interact = 'Click',
+    Callback = function()
+             loadstring(game:HttpGet("https://pastebin.com/raw/An7ujyKp"))()
+    end,
+ })
 
 
  local Button = tab7:CreateButton({
@@ -636,6 +645,71 @@ local TeleportButton = tab4:CreateButton({
        if player and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
           -- Set coordinates (change these values as needed)
           local targetPosition = Vector3.new(-9051.74, 2.86, -6032.70) -- X, Y, Z coordinates
+ 
+          -- Teleport the player
+          player.Character.HumanoidRootPart.CFrame = CFrame.new(targetPosition)
+       end
+    end,
+ })
+ local TeleportButton = tab9:CreateButton({
+    Name = "Booth 1 [TP]",
+    Callback = function()
+       local player = game.Players.LocalPlayer
+       if player and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+          -- Set coordinates (change these values as needed)
+          local targetPosition = Vector3.new(154.75, 8.11, 136.46) -- X, Y, Z coordinates
+ 
+          -- Teleport the player
+          player.Character.HumanoidRootPart.CFrame = CFrame.new(targetPosition)
+       end
+    end,
+ })
+ local TeleportButton = tab9:CreateButton({
+    Name = "Booth 2 [TP]",
+    Callback = function()
+       local player = game.Players.LocalPlayer
+       if player and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+          -- Set coordinates (change these values as needed)
+          local targetPosition = Vector3.new(155.44, 8.11, 104.87) -- X, Y, Z coordinates
+ 
+          -- Teleport the player
+          player.Character.HumanoidRootPart.CFrame = CFrame.new(targetPosition)
+       end
+    end,
+ })
+ local TeleportButton = tab9:CreateButton({
+    Name = "Booth 3 [TP]",
+    Callback = function()
+       local player = game.Players.LocalPlayer
+       if player and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+          -- Set coordinates (change these values as needed)
+          local targetPosition = Vector3.new(155.21, 8.11, 74.48) -- X, Y, Z coordinates
+ 
+          -- Teleport the player
+          player.Character.HumanoidRootPart.CFrame = CFrame.new(targetPosition)
+       end
+    end,
+ })
+ local TeleportButton = tab9:CreateButton({
+    Name = "Booth 4 [TP]",
+    Callback = function()
+       local player = game.Players.LocalPlayer
+       if player and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+          -- Set coordinates (change these values as needed)
+          local targetPosition = Vector3.new(155.18, 8.11, 43.54) -- X, Y, Z coordinates
+ 
+          -- Teleport the player
+          player.Character.HumanoidRootPart.CFrame = CFrame.new(targetPosition)
+       end
+    end,
+ })
+ local TeleportButton = tab9:CreateButton({
+    Name = "Booth 5 [TP]",
+    Callback = function()
+       local player = game.Players.LocalPlayer
+       if player and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+          -- Set coordinates (change these values as needed)
+          local targetPosition = Vector3.new(155.84, 8.11, 12.29) -- X, Y, Z coordinates
  
           -- Teleport the player
           player.Character.HumanoidRootPart.CFrame = CFrame.new(targetPosition)
