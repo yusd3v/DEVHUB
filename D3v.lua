@@ -89,8 +89,6 @@ local Slider = tab1:CreateSlider({
 
 
 
-
-
 -- Services
 local RunService = game:GetService("RunService")
 local UserInputService = game:GetService("UserInputService")
