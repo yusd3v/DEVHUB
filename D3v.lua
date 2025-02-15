@@ -403,7 +403,7 @@ local Button = tab6:CreateButton({
     Name = "graphics",
     Callback = function()
             local IsStudio = false
-loadstring(game:HttpGet("https://pastebin.com/raw/F0vzkbCC"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/yusd3v/DEVHUB-RBX/refs/heads/main/graphics.lua"))()
     end,
 })
 
