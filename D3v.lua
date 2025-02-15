@@ -58,8 +58,6 @@ Actions = { -- Notification Buttons
 },
 })
 
-local Tab = Window:CreateTab("Spin Controls", 4483362458) -- Adjust tab name and icon ID as needed
-
 local spinSpeed = 20 -- Default spin speed
 
 -- Slider to control spin speed
