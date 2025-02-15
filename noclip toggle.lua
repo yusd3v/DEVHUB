@@ -33,7 +33,6 @@ userInputService.InputBegan:Connect(function(input, gameProcessed)
     end
 end)
 
--- Constantly update player collision
 runService.Stepped:Connect(function()
     if noclip and character then
         for _, part in pairs(character:GetChildren()) do
