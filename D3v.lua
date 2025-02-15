@@ -33,7 +33,6 @@ KeySettings = {
     Key = {"w"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
 }
 })
-local tab11 = Window:CreateTab("Home", nil) -- Title, Image
 local tab1 = Window:CreateTab("Local Player", nil) -- Title, Image
 local tab2 = Window:CreateTab("Players", nil) -- Title, Image
 local tab3 = Window:CreateTab("Exploits", nil) -- Title, Image
@@ -304,6 +303,7 @@ local UnHeadSitButton = tab2:CreateButton({
         unHeadSit()
     end
 })
+
 
 
 
