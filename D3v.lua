@@ -45,7 +45,7 @@ local tab8 = Window:CreateTab("Freaky", nil)
 
 Rayfield:Notify({
 Title = "Script Loaded",
-Content = "Flux Hub, All in one script",
+Content = "DEV Hub, All in one script menu key is [K]",
 Duration = 5,
 Image = 1,
 Actions = { -- Notification Buttons
@@ -86,6 +86,9 @@ local Slider = tab1:CreateSlider({
         end
     end,
 })
+
+
+
 
 
 -- Services
