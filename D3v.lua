@@ -338,7 +338,7 @@ local Button = tab3:CreateButton({
     Name = "ctrl click TP",
     Callback = function()
             local IsStudio = false
-loadstring(game:HttpGet("https://pastebin.com/raw/2xGwLCAY"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/yusd3v/DEVHUB-RBX/refs/heads/main/ctrl%20click%20tp.lua"))()
     end,
 })
 
