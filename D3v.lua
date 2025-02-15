@@ -409,10 +409,10 @@ loadstring(game:HttpGet("https://pastebin.com/raw/F0vzkbCC"))()
 
 
 local Button = tab6:CreateButton({
-    Name = "baseplate v1.1",
+    Name = "baseplate",
     Callback = function()
             local IsStudio = false
-loadstring(game:HttpGet("https://pastebin.com/raw/7Z71ga7C"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/yusd3v/DEVHUB-RBX/refs/heads/main/baseplate.lua"))()
     end,
 })
 
