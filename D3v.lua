@@ -58,6 +58,46 @@ Actions = { -- Notification Buttons
 },
 })
 
+local Tab = Window:CreateTab("Spin Controls", 4483362458) -- Adjust tab name and icon ID as needed
+
+local spinSpeed = 20 -- Default spin speed
+
+-- Slider to control spin speed
+local SpinSlider = Tab:CreateSlider({
+    Name = "Set Spin Speed",
+    Min = 0,
+    Max = 100,
+    CurrentValue = spinSpeed,
+    Flag = "SpinSpeed",
+    Callback = function(value)
+        spinSpeed = value
+        -- Apply the spinning effect
+        for i, v in pairs(getRoot(game.Players.LocalPlayer.Character):GetChildren()) do
+            if v.Name == "Spinning" then
+                v:Destroy()
+            end
+        end
+        local Spin = Instance.new("BodyAngularVelocity")
+        Spin.Name = "Spinning"
+        Spin.Parent = getRoot(game.Players.LocalPlayer.Character)
+        Spin.MaxTorque = Vector3.new(0, math.huge, 0)
+        Spin.AngularVelocity = Vector3.new(0, spinSpeed, 0)
+    end
+})
+
+-- Button to stop spinning
+local StopSpinButton = Tab:CreateButton({
+    Name = "Stop Spinning",
+    Callback = function()
+        for i, v in pairs(getRoot(game.Players.LocalPlayer.Character):GetChildren()) do
+            if v.Name == "Spinning" then
+                v:Destroy()
+            end
+        end
+    end
+})
+
+
 local Slider = tab1:CreateSlider({
     Name = "WalkSpeed",
     Range = {0, 300},
