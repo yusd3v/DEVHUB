@@ -42,7 +42,6 @@ local tab4 = Window:CreateTab("TPs [working on this]", nil) -- Title, Image
 local tab5 = Window:CreateTab("Animations", nil)
 local tab9 = Window:CreateTab("Booths", nil)
 local tab8 = Window:CreateTab("Freaky", nil)
-local tab10 = Window:CreateTab("Dev stuff [TEMP]", nil)
 
 Rayfield:Notify({
 Title = "Script Loaded",
@@ -305,15 +304,6 @@ local UnHeadSitButton = tab2:CreateButton({
 })
 
 
-
-
-local Button = tab10:CreateButton({
-    Name = "Cord Grabber",
-    Interact = 'Click',
-    Callback = function()
-             loadstring(game:HttpGet("https://raw.githubusercontent.com/yusd3v/DEVHUB-RBX/refs/heads/main/cord%20grabber%20%5BDEV%5D.lua"))()
-    end,
- })
 
 
  local Button = tab7:CreateButton({
@@ -645,6 +635,20 @@ local TeleportButton = tab4:CreateButton({
        if player and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
           -- Set coordinates (change these values as needed)
           local targetPosition = Vector3.new(-9051.74, 2.86, -6032.70) -- X, Y, Z coordinates
+ 
+          -- Teleport the player
+          player.Character.HumanoidRootPart.CFrame = CFrame.new(targetPosition)
+       end
+    end,
+ })
+
+ local TeleportButton = tab4:CreateButton({
+    Name = "Extra Baseplate Button",
+    Callback = function()
+       local player = game.Players.LocalPlayer
+       if player and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+          -- Set coordinates (change these values as needed)
+          local targetPosition = Vector3.new(-117.79, 3.32, -112.62) -- X, Y, Z coordinates
  
           -- Teleport the player
           player.Character.HumanoidRootPart.CFrame = CFrame.new(targetPosition)
