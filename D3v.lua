@@ -328,7 +328,7 @@ local Button = tab10:CreateButton({
     Name = "Dash Animation",
     Interact = 'Click',
     Callback = function()
-             loadstring(game:HttpGet("https://pastebin.com/raw/qWeSAumd"))()
+             loadstring(game:HttpGet("https://raw.githubusercontent.com/yusd3v/DEVHUB-RBX/refs/heads/main/dash%20anim.lua"))()
     end,
  })
 
@@ -338,7 +338,7 @@ local Button = tab3:CreateButton({
     Name = "ctrl click TP",
     Callback = function()
             local IsStudio = false
-loadstring(game:HttpGet("https://raw.githubusercontent.com/yusd3v/DEVHUB-RBX/refs/heads/main/ctrl%20click%20tp.lua"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/yusd3v/DEVHUB-RBX/refs/heads/main/ctrl%20click%20tp.lua  "))()
     end,
 })
 
