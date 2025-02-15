@@ -651,6 +651,8 @@ local TeleportButton = tab4:CreateButton({
        end
     end,
  })
+
+ -- booth TPs
  local TeleportButton = tab9:CreateButton({
     Name = "Booth 1 [TP]",
     Callback = function()
