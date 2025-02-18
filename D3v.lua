@@ -425,7 +425,7 @@ loadstring(game:HttpGet("https://pastebin.com/raw/3Rnd9rHf"))()
 })
 
 local Button = tab1:CreateButton({
-    Name = "Teleport Toggle",
+    Name = "anti bang Toggle",
     Callback = function()
         local player = game.Players.LocalPlayer
         if player and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
