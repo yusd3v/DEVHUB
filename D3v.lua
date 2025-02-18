@@ -424,6 +424,26 @@ loadstring(game:HttpGet("https://pastebin.com/raw/3Rnd9rHf"))()
     end,
 })
 
+local Button = tab1:CreateButton({
+    Name = "Teleport Toggle",
+    Callback = function()
+        local player = game.Players.LocalPlayer
+        if player and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+            local hrp = player.Character.HumanoidRootPart
+
+            if originalPosition == nil then
+                -- Save original position
+                originalPosition = hrp.Position
+                -- Teleport to new location
+                hrp.CFrame = CFrame.new(199672, 21854, -218434)
+            else
+                -- Return to original position
+                hrp.CFrame = CFrame.new(originalPosition)
+                originalPosition = nil
+            end
+        end
+    end
+})
 
 local RunService = game:GetService("RunService")
 local Players = game:GetService("Players")
