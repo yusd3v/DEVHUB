@@ -425,22 +425,24 @@ loadstring(game:HttpGet("https://pastebin.com/raw/3Rnd9rHf"))()
 })
 
 local Button = tab1:CreateButton({
-    Name = "anti bang Toggle",
+    Name = "Anti bang",
     Callback = function()
         local player = game.Players.LocalPlayer
         if player and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
             local hrp = player.Character.HumanoidRootPart
 
-            if originalPosition == nil then
-                -- Save original position
-                originalPosition = hrp.Position
-                -- Teleport to new location
-                hrp.CFrame = CFrame.new(199672, 21854, -218434)
-            else
-                -- Return to original position
-                hrp.CFrame = CFrame.new(originalPosition)
-                originalPosition = nil
-            end
+            -- Save original position
+            local originalPosition = hrp.Position
+
+            -- Teleport to the target location
+            hrp.CFrame = CFrame.new(199672, 21854, -218434)
+
+            -- Wait 4 seconds, then teleport back
+            task.delay(4, function()
+                if player and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+                    hrp.CFrame = CFrame.new(originalPosition)
+                end
+            end)
         end
     end
 })
