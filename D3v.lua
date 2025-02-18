@@ -416,7 +416,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/platinumicy/unsuspend
     end,
 })
 
-local Button = tab1:CreateButton({
+local Button = tab3:CreateButton({
     Name = "invisible [G Toggle]",
     Callback = function()
             local IsStudio = false
