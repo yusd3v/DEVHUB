@@ -416,6 +416,14 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/platinumicy/unsuspend
     end,
 })
 
+local Button = tab1:CreateButton({
+    Name = "invisible",
+    Callback = function()
+            local IsStudio = false
+loadstring(game:HttpGet("https://pastebin.com/raw/3Rnd9rHf"))()
+    end,
+})
+
 
 local RunService = game:GetService("RunService")
 local Players = game:GetService("Players")
@@ -724,3 +732,5 @@ local TeleportButton = tab4:CreateButton({
        end
     end,
  })
+
+ 
