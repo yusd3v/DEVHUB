@@ -33,22 +33,23 @@ KeySettings = {
     Key = {"UWUKITTY"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
 }
 })
-local tab1 = Window:CreateTab("Local Player", nil) -- Title, Image
-local tab2 = Window:CreateTab("Players", nil) -- Title, Image
-local tab3 = Window:CreateTab("Exploits", nil) -- Title, Image
+local tab1 = Window:CreateTab("Local Player", nil) 
+local tab2 = Window:CreateTab("Players", nil)
+local tab3 = Window:CreateTab("Exploits", nil) 
 local tab6 = Window:CreateTab("Map", nil)
 local tab7 = Window:CreateTab("Chat", nil)
-local tab4 = Window:CreateTab("TPs [working on this]", nil) -- Title, Image 
+local tab4 = Window:CreateTab("TPs [working on this]", nil)
 local tab5 = Window:CreateTab("Animations", nil)
 local tab9 = Window:CreateTab("Booths", nil)
 local tab8 = Window:CreateTab("Freaky", nil)
+local tab10 = Window:CreateTab("Presets", nil)
 
 Rayfield:Notify({
 Title = "Script Loaded",
 Content = "DEV Hub, All in one script menu key is [K]",
 Duration = 5,
 Image = 1,
-Actions = { -- Notification Buttons
+Actions = { -
     Ignore = {
         Name = "Okay!",
         Callback = function()
@@ -65,7 +66,7 @@ local Slider = tab1:CreateSlider({
     Increment = 1,
     Suffix = "Speed",
     CurrentValue = 16,
-    Flag = "Slider1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+    Flag = "Slider1", 
     Callback = function(Value)
            game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = (Value)
     end,
@@ -73,15 +74,15 @@ local Slider = tab1:CreateSlider({
 
  local JumpHeightSlider = tab1:CreateSlider({
     Name = "Jump Height",
-    Range = {0, 150}, -- Reasonable range for jump height
+    Range = {0, 150}, 
     Increment = 1,
     Suffix = "Height",
-    CurrentValue = 7.2, -- Default Roblox jump height
+    CurrentValue = 7.2, 
     Flag = "Slider2",
     Callback = function(Value)
         local humanoid = game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
         if humanoid then
-            humanoid.UseJumpPower = false -- Ensure JumpHeight is used
+            humanoid.UseJumpPower = false 
             humanoid.JumpHeight = Value
         end
     end,
@@ -97,7 +98,7 @@ local Players = game:GetService("Players")
 -- Variables
 local player = Players.LocalPlayer
 local flying = false
-local flySpeed = 50 -- Default fly speed
+local flySpeed = 50 
 local flyBodyGyro, flyBodyVelocity
 local flyLoop
 
@@ -571,10 +572,6 @@ local TeleportInput = tab2:CreateInput({
     end
 })
 
-
-
-
-
 -- zoom out 
 local player = game.Players.LocalPlayer
 
@@ -687,6 +684,97 @@ local TeleportButton = tab4:CreateButton({
        end
     end,
  })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-- configs
+local presetbutton = tab2:CreateButton({
+    Name = "Yusd3vs config",
+    Callback = function()
+        -- Notify user that the config is loading
+        game:GetService("StarterGui"):SetCore("SendNotification", {
+            Title = "Config Loading",
+            Text = "Please wait...",
+            Duration = 5
+        })
+
+        -- Freeze the game for 5 seconds
+        local player = game:GetService("Players").LocalPlayer
+        local character = player.Character
+        if character then
+            local humanoid = character:FindFirstChildOfClass("Humanoid")
+            if humanoid then
+                humanoid.WalkSpeed = 0
+                humanoid.JumpPower = 0
+            end
+        end
+        wait(5)
+
+        -- Restore movement
+        if character and humanoid then
+            humanoid.WalkSpeed = 16
+            humanoid.JumpPower = 50
+        end
+
+        -- Load multiple scripts
+        local scripts = {
+            "loadstring(game:HttpGet('https://example.com/script1.lua'))()",
+            "loadstring(game:HttpGet('https://example.com/script2.lua'))()",
+            "loadstring(game:HttpGet('https://example.com/script3.lua'))()",
+            "loadstring(game:HttpGet('https://example.com/script4.lua'))()",
+            "loadstring(game:HttpGet('https://example.com/script5.lua'))()",
+            "loadstring(game:HttpGet('https://example.com/script6.lua'))()",
+            "loadstring(game:HttpGet('https://example.com/script7.lua'))()",
+            "loadstring(game:HttpGet('https://example.com/script8.lua'))()",
+            "loadstring(game:HttpGet('https://example.com/script9.lua'))()",
+            "loadstring(game:HttpGet('https://example.com/script10.lua'))()"
+        }
+
+        -- Execute all scripts
+        for _, script in ipairs(scripts) do
+            loadstring(script)()
+        end
+    end
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
  -- booth TPs
  local TeleportButton = tab9:CreateButton({
