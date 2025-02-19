@@ -42,7 +42,6 @@ local tab4 = Window:CreateTab("TPs [working on this]", nil)
 local tab5 = Window:CreateTab("Animations", nil)
 local tab9 = Window:CreateTab("Booths", nil)
 local tab8 = Window:CreateTab("Freaky", nil)
-local tab10 = Window:CreateTab("Presets", nil)
 
 Rayfield:Notify({
 Title = "Script Loaded",
@@ -703,55 +702,6 @@ local TeleportButton = tab4:CreateButton({
 
 
 
--- configs
-local presetbutton = tab2:CreateButton({
-    Name = "Yusd3vs config",
-    Callback = function()
-        -- Notify user that the config is loading
-        game:GetService("StarterGui"):SetCore("SendNotification", {
-            Title = "Config Loading",
-            Text = "Please wait...",
-            Duration = 5
-        })
-
-        -- Freeze the game for 5 seconds
-        local player = game:GetService("Players").LocalPlayer
-        local character = player.Character
-        if character then
-            local humanoid = character:FindFirstChildOfClass("Humanoid")
-            if humanoid then
-                humanoid.WalkSpeed = 0
-                humanoid.JumpPower = 0
-            end
-        end
-        wait(5)
-
-        -- Restore movement
-        if character and humanoid then
-            humanoid.WalkSpeed = 16
-            humanoid.JumpPower = 50
-        end
-
-        -- Load multiple scripts
-        local scripts = {
-            "loadstring(game:HttpGet('https://example.com/script1.lua'))()",
-            "loadstring(game:HttpGet('https://example.com/script2.lua'))()",
-            "loadstring(game:HttpGet('https://example.com/script3.lua'))()",
-            "loadstring(game:HttpGet('https://example.com/script4.lua'))()",
-            "loadstring(game:HttpGet('https://example.com/script5.lua'))()",
-            "loadstring(game:HttpGet('https://example.com/script6.lua'))()",
-            "loadstring(game:HttpGet('https://example.com/script7.lua'))()",
-            "loadstring(game:HttpGet('https://example.com/script8.lua'))()",
-            "loadstring(game:HttpGet('https://example.com/script9.lua'))()",
-            "loadstring(game:HttpGet('https://example.com/script10.lua'))()"
-        }
-
-        -- Execute all scripts
-        for _, script in ipairs(scripts) do
-            loadstring(script)()
-        end
-    end
-})
 
 
 
@@ -771,11 +721,7 @@ local presetbutton = tab2:CreateButton({
 
 
 
-
-
-
-
-
+ 
  -- booth TPs
  local TeleportButton = tab9:CreateButton({
     Name = "Booth 1 [TP]",
