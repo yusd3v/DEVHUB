@@ -33,12 +33,12 @@ KeySettings = {
     Key = {"UWUKITTY"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
 }
 })
-local tab1 = Window:CreateTab("Local Player", nil) 
-local tab2 = Window:CreateTab("Players", nil)
-local tab3 = Window:CreateTab("Exploits", nil) 
+local tab1 = Window:CreateTab("Local Player", nil) -- Title, Image
+local tab2 = Window:CreateTab("Players", nil) -- Title, Image
+local tab3 = Window:CreateTab("Exploits", nil) -- Title, Image
 local tab6 = Window:CreateTab("Map", nil)
 local tab7 = Window:CreateTab("Chat", nil)
-local tab4 = Window:CreateTab("TPs [working on this]", nil)
+local tab4 = Window:CreateTab("TPs [working on this]", nil) -- Title, Image 
 local tab5 = Window:CreateTab("Animations", nil)
 local tab9 = Window:CreateTab("Booths", nil)
 local tab8 = Window:CreateTab("Freaky", nil)
@@ -48,7 +48,7 @@ Title = "Script Loaded",
 Content = "DEV Hub, All in one script menu key is [K]",
 Duration = 5,
 Image = 1,
-Actions = { -
+Actions = { -- Notification Buttons
     Ignore = {
         Name = "Okay!",
         Callback = function()
@@ -65,7 +65,7 @@ local Slider = tab1:CreateSlider({
     Increment = 1,
     Suffix = "Speed",
     CurrentValue = 16,
-    Flag = "Slider1", 
+    Flag = "Slider1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
     Callback = function(Value)
            game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = (Value)
     end,
@@ -73,15 +73,15 @@ local Slider = tab1:CreateSlider({
 
  local JumpHeightSlider = tab1:CreateSlider({
     Name = "Jump Height",
-    Range = {0, 150}, 
+    Range = {0, 150}, -- Reasonable range for jump height
     Increment = 1,
     Suffix = "Height",
-    CurrentValue = 7.2, 
+    CurrentValue = 7.2, -- Default Roblox jump height
     Flag = "Slider2",
     Callback = function(Value)
         local humanoid = game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
         if humanoid then
-            humanoid.UseJumpPower = false 
+            humanoid.UseJumpPower = false -- Ensure JumpHeight is used
             humanoid.JumpHeight = Value
         end
     end,
@@ -97,7 +97,7 @@ local Players = game:GetService("Players")
 -- Variables
 local player = Players.LocalPlayer
 local flying = false
-local flySpeed = 50 
+local flySpeed = 50 -- Default fly speed
 local flyBodyGyro, flyBodyVelocity
 local flyLoop
 
@@ -571,6 +571,10 @@ local TeleportInput = tab2:CreateInput({
     end
 })
 
+
+
+
+
 -- zoom out 
 local player = game.Players.LocalPlayer
 
@@ -684,44 +688,6 @@ local TeleportButton = tab4:CreateButton({
     end,
  })
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
  -- booth TPs
  local TeleportButton = tab9:CreateButton({
     Name = "Booth 1 [TP]",
