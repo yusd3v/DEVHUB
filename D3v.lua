@@ -688,6 +688,34 @@ local TeleportButton = tab4:CreateButton({
     end,
  })
 
+ local TeleportButton = tab4:CreateButton({
+    Name = "Tower [Very top]",
+    Callback = function()
+       local player = game.Players.LocalPlayer
+       if player and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+          -- Set coordinates (change these values as needed)
+          local targetPosition = Vector3.new(73.21, 313.17, 237.77) -- X, Y, Z coordinates
+ 
+          -- Teleport the player
+          player.Character.HumanoidRootPart.CFrame = CFrame.new(targetPosition)
+       end
+    end,
+ })
+
+ local TeleportButton = tab4:CreateButton({
+    Name = "Tower [top]",
+    Callback = function()
+       local player = game.Players.LocalPlayer
+       if player and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+          -- Set coordinates (change these values as needed)
+          local targetPosition = Vector3.new(90.03, 284.27, 255.28) -- X, Y, Z coordinates
+ 
+          -- Teleport the player
+          player.Character.HumanoidRootPart.CFrame = CFrame.new(targetPosition)
+       end
+    end,
+ })
+
  -- booth TPs
  local TeleportButton = tab9:CreateButton({
     Name = "Booth 1 [TP]",
