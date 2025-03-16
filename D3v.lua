@@ -45,7 +45,7 @@ local tab8 = Window:CreateTab("Freaky", nil)
 
 Rayfield:Notify({
 Title = "Script Loaded",
-Content = "DEV Hub, All in one script menu key is [K]",
+Content = "yus`s menu, All in one script menu key is [K]",
 Duration = 5,
 Image = 1,
 Actions = { -- Notification Buttons
@@ -384,7 +384,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/platinumicy/emotemenu
 })
 
 local Button = tab8:CreateButton({
-    Name = "face bang",
+    Name = "face bang [Z]",
     Callback = function()
             local IsStudio = false
 loadstring(game:HttpGet("https://raw.githubusercontent.com/EnterpriseExperience/bruhlolw/refs/heads/main/face_bang_script.lua"))()
@@ -401,7 +401,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/yusd3v/DEVHUB-RBX/ref
 
 
 local Button = tab6:CreateButton({
-    Name = "baseplate",
+    Name = "baseplate [H]",
     Callback = function()
             local IsStudio = false
 loadstring(game:HttpGet("https://raw.githubusercontent.com/yusd3v/DEVHUB-RBX/refs/heads/main/baseplate.lua"))()
