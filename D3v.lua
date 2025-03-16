@@ -13,7 +13,7 @@ DisableBuildWarnings = false, -- Prevents Rayfield from warning when the script 
 ConfigurationSaving = {
     Enabled = false,
     FolderName = nil, -- Create a custom folder for your hub/game
-    FileName = "Flux Hub"
+    FileName = "D3VHUB"
 },
 
 Discord = {
@@ -26,11 +26,11 @@ KeySystem = true, -- Set this to true to use our key system
 KeySettings = {
     Title = "Mic up",
     Subtitle = "key locked to stop leakers",
-    Note = "Discord .gg/k6ZKwdg4kk", -- Use this to tell the user how to get a key  
+    Note = "make sure to join the discord for a key.", -- Use this to tell the user how to get a key  
     FileName = "Key", -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
     SaveKey = true, -- The user's key will be saved, but if you change the key, they will be unable to use your script
     GrabKeyFromSite = false, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
-    Key = {"UWUKITTY"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
+    Key = {"key123"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
 }
 })
 local tab1 = Window:CreateTab("Local Player", nil) -- Title, Image
@@ -316,13 +316,13 @@ local UnHeadSitButton = tab2:CreateButton({
     end,
  })
 
- local Button = tab5:CreateButton({
-    Name = "Dash Animation",
-    Interact = 'Click',
-    Callback = function()
-             loadstring(game:HttpGet("https://raw.githubusercontent.com/yusd3v/DEVHUB-RBX/refs/heads/main/dash%20anim.lua"))()
-    end,
- })
+--  local Button = tab5:CreateButton({
+--     Name = "Dash Animation",
+--     Interact = 'Click',
+--     Callback = function()
+--              loadstring(game:HttpGet("https://raw.githubusercontent.com/yusd3v/DEVHUB-RBX/refs/heads/main/dash%20anim.lua"))()
+--     end,
+--  })
 
 
 
