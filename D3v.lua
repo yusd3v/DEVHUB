@@ -1,7 +1,7 @@
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 local Window = Rayfield:CreateWindow({
-Name = "D3V | MIC UP 🔊| .gg/k6ZKwdg4kk",
+Name = "phoenix | MIC UP 🔊| ",
 Icon = 0, -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
 LoadingTitle = "MIC UP 🔊 by phoenix",
 LoadingSubtitle = "by yus and phoenix",
