@@ -10,7 +10,7 @@ Theme = "Default", -- Check https://docs.sirius.menu/rayfield/configuration/them
 DisableRayfieldPrompts = false,
 DisableBuildWarnings = false, -- Prevents Rayfield from warning when the script has a version mismatch with the interface
 
-ConfigurationSaving = {
+ConfigurationSaVIng = {
     Enabled = false,
     FolderName = nil, -- Create a custom folder for your hub/game
     FileName = "D3VHUB"
